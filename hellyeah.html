@@ -41,6 +41,9 @@
     var E1x = 766;
     var E1y = 410;
 
+    var prev1 = 0; // Предыдущее положение препятствия 0 - снизу 1 - сверху 
+    var cur1; // Текущее положение
+
     <!-- Второй треугольник -->
     var C2x = 1006;
     var C2y = 298;
@@ -50,6 +53,9 @@
 
     var E2x = 1029;
     var E2y = 410;
+
+    var prev2 = 0; // Предыдущее положение препятствия 0 - снизу 1 - сверху 
+    var cur2; // Текущее положение
 
     <!-- Третий треугольник -->
     var C3x = 1246;
@@ -61,8 +67,15 @@
     var E3x = 1269;
     var E3y = 410;
 
+    var prev3 = 0 ; // Предыдущее положение препятствия 0 - снизу 1 - сверху 
+    var cur3; // Текущее положение
+
+    <!-- Данные для функций фиксирующих столкновение -->
+    var k = 4.87;
+    var dxfun = 766; <!-- Это приращение к аргументу будем менять на dxobstacle -->
+
     <!-- Задаем начальное положение для героя -->
-    var x = 50;
+    var x = 50; 
     var y = 370;
 
     <!-- Рисовка главного героя -->
@@ -94,6 +107,21 @@
 
     <!-- Генерация препятствий (три функции)-->
     function drawObstacle1() {
+      if (D1x == 720) { //смена ориентации препятствия
+        cur1 = Math.floor(Math.random() * 2); // 1 or 0 
+        if (cur1 != prev1) {
+          if (prev1 == 1) {
+            D1y += 280;
+            C1y += 56;
+            E1y += 280;
+          } else {
+            D1y -= 280;
+            C1y -= 56;
+            E1y -= 280;
+          }
+        }
+        prev1 = cur1;
+      }
       ctx.beginPath();
       ctx.moveTo(D1x,D1y);
       ctx.lineTo(C1x,C1y);
@@ -103,6 +131,22 @@
     }
 
     function drawObstacle2() {
+      if (D2x == 720) { //смена ориентации препятствия
+        cur2 = Math.floor(Math.random() * 2); // 1 or 0 
+        if (cur2 != prev2) {
+          if (prev2 == 1) {
+            D2y += 280;
+            C2y += 56;
+            E2y += 280;
+          } else {
+            D2y -= 280;
+            C2y -= 56;
+            E2y -= 280;
+          }
+        }
+        prev2 = cur2;
+      }
+      ctx.beginPath();
       ctx.beginPath();
       ctx.moveTo(D2x,D2y);
       ctx.lineTo(C2x,C2y);
@@ -112,6 +156,22 @@
     }
 
     function drawObstacle3() {
+      if (D3x == 720) { //смена ориентации препятствия
+        cur3 = Math.floor(Math.random() * 2); // 1 or 0 
+        if (cur3 != prev3) {
+          if (prev3 == 1) {
+            D3y += 280;
+            C3y += 56;
+            E3y += 280;
+          } else {
+            D3y -= 280;
+            C3y -= 56;
+            E3y -= 280;
+          }
+        }
+        prev3 = cur3;
+      }
+      ctx.beginPath();
       ctx.beginPath();
       ctx.moveTo(D3x,D3y);
       ctx.lineTo(C3x,C3y);
@@ -153,6 +213,13 @@
       drawObstacle1();
       drawObstacle2();
       drawObstacle3();
+      <!-- Проверяем на столкновение правый нижний угол -->
+      //if (y + 40 >= (x + 40 - dxfun) * k + 410 && y + 40 >= - (x + 40 - dxfun)*k + 186) {
+      //  alert("GAME OVER");
+      //  document.location.reload();
+      //  clearInterval(interval);
+      //}
+      dxfun += dxobstacle;
       D1x += dxobstacle;
       C1x += dxobstacle;
       E1x += dxobstacle;
@@ -166,6 +233,7 @@
         D1x = 720;
         C1x = 743;
         E1x = 766;
+        dxfun = 766;
       }
       if (E2x < 0) {
         D2x = 720;
@@ -195,7 +263,7 @@
         }
     }
 
-    setInterval(draw, 10);
+    var interval = setInterval(draw, 10);
   </script>
 </body>
 </html>
