@@ -23,6 +23,9 @@
     <!-- Подключение работы кнопок -->
     var spacePressed = false;
 
+    <!-- Переменная со счетом -->
+    var score = 0;
+
     <!-- Физические константы -->
     var dxobstacle = -3 ;
     var g = 0.50;
@@ -181,6 +184,13 @@
       ctx.fillStyle = "#000000";
       ctx.fill();
     }
+    
+    <!-- Функция вывода счета -->
+    function drawScore() {
+      ctx.font = "32px Arial";
+      ctx.fillStyle = "#FF00FF"; //
+      ctx.fillText("Score: "+score, 8, 30);
+    }
 
     <!-- Мейн функция -->
     function draw() {
@@ -188,6 +198,7 @@
       drawBackgroundStone();
       drawBackgroundAir();
       drawHero();
+      drawScore();
       <!-- Настройка гравитации -->
       if (spacePressed && y == 130) {
         u = 1.9;
@@ -220,14 +231,14 @@
       if (cur1 == 0) { // если препятствие снизу
         <!-- Проверяем на столкновение правый нижний угол -->
         if (y + 20 >= (x + 20 - dxfun1) * k + 410 && y + 20 >= - (x + 20 - dxfun1)*k + 186) {
-          alert("GAME OVER 1");
+          alert("GAME OVER! Your score: "+score);
           document.location.reload();
           clearInterval(interval);
         }
       } else { // если сверху
         <!-- Проверяем на столкновение правый нижний угол -->
         if (y + 20 <= (x + 20 - dxfun1) * k + 354 && y + 20 <= - (x + 20 - dxfun1)*k + 130) {
-          alert("GAME OVER");
+          alert("GAME OVER! Your score: "+score);
           document.location.reload();
           clearInterval(interval);
         }
@@ -237,14 +248,14 @@
       if (prev2 == 0) { // если препятствие снизу
         <!-- Проверяем на столкновение правый нижний угол -->
         if (y + 20 >= (x + 20 - dxfun2) * k + 410 && y + 20 >= - (x + 20 - dxfun2)*k + 186) {
-          alert("GAME OVER");
+          alert("GAME OVER! Your score: "+score);
           document.location.reload();
           clearInterval(interval);
         }
       } else { // если сверху
         <!-- Проверяем на столкновение правый нижний угол -->
         if (y + 20 <= (x + 20 - dxfun2) * k + 354 && y + 20 <= - (x + 20 - dxfun2)*k + 130) {
-          alert("GAME OVER");
+          alert("GAME OVER! Your score: "+score);
           document.location.reload();
           clearInterval(interval);
         }
@@ -254,14 +265,14 @@
       if (prev3 == 0) { // если препятствие снизу
         <!-- Проверяем на столкновение правый нижний угол -->
         if (y + 40 >= (x + 40 - dxfun3) * k + 410 && y + 40 >= - (x + 40 - dxfun3)*k + 186) {
-          alert("GAME OVER");
+          alert("GAME OVER! Your score: "+score);
           document.location.reload();
           clearInterval(interval);
         }
       } else { // если сверху
         <!-- Проверяем на столкновение правый нижний угол -->
         if (y + 40 <= (x + 40 - dxfun3) * k + 354 && y + 40 <= - (x + 40 - dxfun3)*k + 130) {
-          alert("GAME OVER");
+          alert("GAME OVER! Your score: "+score);
           document.location.reload();
           clearInterval(interval);
         }
@@ -296,6 +307,7 @@
         dxfun3 = 766;
       }
       dxobstacle -= 0.002;
+      score += 1;
     }
 
     <!-- Настройка кнопок(кнопки) -->
